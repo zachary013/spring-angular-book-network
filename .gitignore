@@ -19,6 +19,10 @@ target/
 *.iml
 *.ipr
 
+# Ignore sensitive configuration files
+/src/main/resources/application.yml
+/src/main/resources/application-dev.yml
+
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
