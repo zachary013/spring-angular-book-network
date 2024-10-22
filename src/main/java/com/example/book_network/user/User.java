@@ -52,17 +52,13 @@ public class User implements UserDetails, Principal {
     private LocalDateTime lastModifiedDate;
 
     @Override
-    public String getName() {
-        return email;
-    }
-
-    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.roles
                 .stream()
                 .map(r -> new SimpleGrantedAuthority(r.getName()))
                 .collect(Collectors.toList());
     }
+
 
     @Override
     public String getPassword() {
@@ -92,6 +88,11 @@ public class User implements UserDetails, Principal {
     @Override
     public boolean isEnabled() {
         return enabled;
+    }
+
+    @Override
+    public String getName() {
+        return email;
     }
 
     public String fullName() {
