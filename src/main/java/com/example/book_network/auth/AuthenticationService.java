@@ -9,11 +9,13 @@ import com.example.book_network.user.TokenRepository;
 import com.example.book_network.user.User;
 import com.example.book_network.user.UserRepository;
 import jakarta.mail.MessagingException;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -43,7 +45,7 @@ public class AuthenticationService {
     //registering user info and saving in database
     public void register(RegistrationRequest request) throws MessagingException {
         var userRole = roleRepository.findByName("USER")
-                // todo - better exception handeling
+                // todo - better exception handling
                 .orElseThrow(() -> new IllegalStateException("ROLE USER not initialized"));
         var user = User.builder()
                 .firstname(request.getFirstname())
@@ -113,5 +115,23 @@ public class AuthenticationService {
         var jwtToken = jwtService.generateToken(claims, user);
         return AuthenticationResponse.builder()
                 .token(jwtToken).build();
+    }
+
+    @Transactional
+    public void activateAccount(String token) throws MessagingException {
+        Token savedToken = tokenRepository.findByToken(token)
+                // todo Exception has to defined
+                .orElseThrow(() -> new RuntimeException("INVALID TOKEN"));
+        //If the token is already expired send a new validation email again
+        if(LocalDateTime.now().isAfter(savedToken.getExpiresAt())) {
+            sendValidationEmail(savedToken.getUser());
+            throw new RuntimeException("TOKEN HAS EXPIRED");
+        }
+        var user = userRepository.findById(savedToken.getUser().getId())
+                .orElseThrow(() -> new UsernameNotFoundException("USER NOT FOUND"));
+        user.setEnabled(true);
+        userRepository.save(user);
+        savedToken.setValidatedAt(LocalDateTime.now());
+        tokenRepository.save(savedToken);
     }
 }
