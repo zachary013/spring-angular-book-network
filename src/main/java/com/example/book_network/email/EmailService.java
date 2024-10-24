@@ -19,7 +19,7 @@ import static org.springframework.mail.javamail.MimeMessageHelper.MULTIPART_MODE
 
 @Service
 @RequiredArgsConstructor
-public class EmailService {
+public class EmailService { //Core class that sends the email
 
     private final JavaMailSender mailSender;
     private final SpringTemplateEngine templateEngine;
@@ -46,11 +46,14 @@ public class EmailService {
                 MULTIPART_MODE_MIXED,
                 UTF_8.name()
         );
+
+        //Create map to hold the values that will be passed into the email
         Map<String, Object> properties = new HashMap<>();
         properties.put("username", username);
         properties.put("confirmationUrl", confirmationUrl);
         properties.put("activationCode", activationCode);
 
+        //process template and insert dynamic values
         Context context = new Context();
         context.setVariables(properties);
 

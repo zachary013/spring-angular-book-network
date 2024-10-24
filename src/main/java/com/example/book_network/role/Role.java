@@ -13,9 +13,9 @@ import java.util.List;
 
 @Getter
 @Setter
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
+@Builder //used for creating objects
+@AllArgsConstructor //initialize a construct with arguments
+@NoArgsConstructor //initialize a construct without arguments
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 public class Role {
