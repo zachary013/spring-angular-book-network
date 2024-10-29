@@ -1,0 +1,12 @@
+spring:
+  profiles:
+    active: dev #Specifing the profile : application-dev.yml
+  servlet:
+    multipart:
+      max-file-size: 50MB  #file uploads max size is 50MB : documents, files, stc
+springdoc:
+  default-produces-media-type: application/json  # API responses will be in json
+
+server:
+  servlet:
+    context-path: /api/v1/  #base URL for API endpoints

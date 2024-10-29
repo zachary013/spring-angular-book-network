@@ -1,0 +1,65 @@
+spring:
+  datasource: #database config
+    url: jdbc:postgresql://localhost:5432/book_social_network #db name : book_social_network
+    username: username
+    password: password
+    driver-class-name: org.postgresql.Driver
+  jpa: #Map java objects to DB tables
+    hibernate:
+      ddl-auto: update #Tells hibernate to automatically update the db when needed
+    show-sql: false  #Prevents SQL statements from being printed to the console.
+    properties:
+      hibernate:
+        format_sql: true #Formats sql queries in a readable way
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect #specify the dialect
+  mail:
+    host: localhost
+    port: 1025
+    username: zak
+    password: azn
+    properties:
+      mail:
+        smtp:
+          trust: "*"
+        auth: true
+        starttls: #secure email communications
+          enable: true
+        connectiontimeout: 5000
+        timeout: 3000
+        writetimeout: 5000
+
+application:
+  security:
+    jwt:
+      secret-key: e765c4d5f64fb95fc6307745d9b7848df49ffdf9a1c997a2c2e2684848092aef
+      expiration: 86400000 #24 hours
+  mailing:
+    frontend:
+      activation-url: http://localhost:4200/activate-account #redirect users to Angular page after registering
+  file:
+    uploads:
+      photos-output-path: ./uploads
+
+server:
+  port: 8088
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
