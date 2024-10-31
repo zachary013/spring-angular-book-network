@@ -32,9 +32,10 @@ public class BeansConfig {
     }
 
     @Bean
-    public AuditorAware<Integer> auditAware() {
+    public AuditorAware<Integer> auditorAware() {
         return new ApplicationAuditAware();
     }
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {

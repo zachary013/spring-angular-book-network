@@ -1,9 +1,9 @@
 package com.example.book_network.config;
 
 import com.example.book_network.user.User;
-import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.Optional;
