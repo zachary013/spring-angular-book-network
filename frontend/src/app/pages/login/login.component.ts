@@ -16,7 +16,7 @@ import {TokenService} from '../../services/token/token.service';
     NgForOf
   ],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
   authRequest: AuthenticationRequest = {email: '', password: ''};

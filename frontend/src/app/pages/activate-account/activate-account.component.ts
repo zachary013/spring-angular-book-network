@@ -4,6 +4,7 @@ import {AuthenticationService} from '../../services/services/authentication.serv
 import {NgIf} from '@angular/common';
 import {CodeInputModule} from 'angular-code-input';
 
+// @ts-ignore
 @Component({
   selector: 'app-activate-account',
   standalone: true,
@@ -12,7 +13,7 @@ import {CodeInputModule} from 'angular-code-input';
     CodeInputModule
   ],
   templateUrl: './activate-account.component.html',
-  styleUrl: './activate-account.component.scss'
+  styleUrls: ['./activate-account.component.scss']
 })
 export class ActivateAccountComponent {
 
@@ -26,6 +27,27 @@ export class ActivateAccountComponent {
   ) {}
 
   onCodeCompleted(token: string) {
-    
+    this.confirmAccount(token);
+  }
+
+  redirectToLogin() {
+    this.router.navigate(['login']);
+  }
+
+  private confirmAccount(token: string) {
+    this.authService.confirm({
+      token
+    }).subscribe({
+      next: (): void => {
+        this.message = 'Your account has been activated.\nNow you can proceed to login';
+        this.submitted = true;
+        this.isOkay = true;
+      },
+      error: (): void => {
+        this.message = 'Token has been expired';
+        this.submitted = true;
+        this.isOkay = false;
+      }
+    })
   }
 }
