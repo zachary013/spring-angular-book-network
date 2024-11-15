@@ -4,6 +4,7 @@
 
 import { BorrowedBookResponse } from '../models/borrowed-book-response';
 export interface PageResponseBorrowedBookResponse {
+  content?: Array<BorrowedBookResponse>;
   first?: boolean;
   last?: boolean;
   list?: Array<BorrowedBookResponse>;

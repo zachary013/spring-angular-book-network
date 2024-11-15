@@ -1,6 +1,8 @@
 <div
-  class="card"
+  class="card border-2"
   style="width: 20rem;"
+  [class.border-success]="book.shareable"
+  [class.border-warning]="book.archived"
 >
   <img [src]="bookCover" alt="..." class="card-img-top" height="200" >
   <div class="card-body overflow-scroll">
