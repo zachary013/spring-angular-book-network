@@ -26,6 +26,7 @@ export class MenuComponent {
   }
 
   logout() {
-
+    localStorage.removeItem('token');
+    window.location.reload();
   }
 }

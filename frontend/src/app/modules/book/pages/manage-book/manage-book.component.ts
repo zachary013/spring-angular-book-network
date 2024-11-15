@@ -1,24 +1,24 @@
 import {Component, OnInit} from '@angular/core';
-import {NgForOf, NgIf} from '@angular/common';
-import {BookResponse} from '../../../../services/models/book-response';
 import {BookRequest} from '../../../../services/models/book-request';
-import {FormsModule} from '@angular/forms';
 import {BookService} from '../../../../services/services/book.service';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
+import {FormsModule} from '@angular/forms';
+import {NgForOf, NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-manage-book',
+  templateUrl: './manage-book.component.html',
   standalone: true,
   imports: [
-    NgIf,
-    NgForOf,
     FormsModule,
-    RouterLink
+    RouterLink,
+    NgForOf,
+    NgIf
   ],
-  templateUrl: './manage-book.component.html',
-  styleUrl: './manage-book.component.scss'
+  styleUrls: ['./manage-book.component.scss']
 })
 export class ManageBookComponent implements OnInit {
+
   errorMsg: Array<string> = [];
   bookRequest: BookRequest = {
     authorName: '',
@@ -33,7 +33,8 @@ export class ManageBookComponent implements OnInit {
     private bookService: BookService,
     private router: Router,
     private activatedRoute: ActivatedRoute
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     const bookId = this.activatedRoute.snapshot.params['bookId'];
@@ -55,7 +56,6 @@ export class ManageBookComponent implements OnInit {
       });
     }
   }
-
 
   saveBook() {
     this.bookService.saveBook({
@@ -93,5 +93,4 @@ export class ManageBookComponent implements OnInit {
       reader.readAsDataURL(this.selectedBookCover);
     }
   }
-
 }
