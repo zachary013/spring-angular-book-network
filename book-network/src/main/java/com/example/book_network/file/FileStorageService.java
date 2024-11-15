@@ -1,7 +1,6 @@
 package com.example.book_network.file;
 
-import com.example.book_network.book.Book;
-import jakarta.validation.constraints.NotNull;
+import jakarta.annotation.Nonnull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,6 +14,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import static java.io.File.separator;
+import static java.lang.System.currentTimeMillis;
 
 @Service
 @Slf4j
@@ -25,52 +25,48 @@ public class FileStorageService {
     private String fileUploadPath;
 
     public String saveFile(
-            @NotNull MultipartFile sourceFile,
-            @NotNull Integer userId
+            @Nonnull MultipartFile sourceFile,
+            @Nonnull String userId
     ) {
         final String fileUploadSubPath = "users" + separator + userId;
         return uploadFile(sourceFile, fileUploadSubPath);
     }
 
     private String uploadFile(
-            @NotNull MultipartFile sourceFile,
-            @NotNull String fileUploadSubPath) {
+            @Nonnull MultipartFile sourceFile,
+            @Nonnull String fileUploadSubPath
+    ) {
         final String finalUploadPath = fileUploadPath + separator + fileUploadSubPath;
         File targetFolder = new File(finalUploadPath);
+
         if (!targetFolder.exists()) {
             boolean folderCreated = targetFolder.mkdirs();
-            if(!folderCreated) {
-                log.warn("Failed to create the target folder");
+            if (!folderCreated) {
+                log.warn("Failed to create the target folder: " + targetFolder);
                 return null;
             }
         }
         final String fileExtension = getFileExtension(sourceFile.getOriginalFilename());
-        // ./upload/users/1/23323572283.jpg
-        String targetFilePath = finalUploadPath + separator + System.currentTimeMillis() + "." + fileExtension;
+        String targetFilePath = finalUploadPath + separator + currentTimeMillis() + "." + fileExtension;
         Path targetPath = Paths.get(targetFilePath);
-
         try {
             Files.write(targetPath, sourceFile.getBytes());
-            log.info("Successfully uploaded file to " + targetFilePath);
+            log.info("File saved to: " + targetFilePath);
             return targetFilePath;
         } catch (IOException e) {
             log.error("File was not saved", e);
         }
-
         return null;
     }
 
     private String getFileExtension(String fileName) {
-        if(fileName == null || fileName.isEmpty()) {
+        if (fileName == null || fileName.isEmpty()) {
             return "";
         }
-        // photo.jpg or photo.png
-        int lastDotIndex = fileName.lastIndexOf('.');
-        //file does not have an extension
-        if(lastDotIndex == -1) {
+        int lastDotIndex = fileName.lastIndexOf(".");
+        if (lastDotIndex == -1) {
             return "";
         }
-        // PNG -> png
         return fileName.substring(lastDotIndex + 1).toLowerCase();
     }
 }

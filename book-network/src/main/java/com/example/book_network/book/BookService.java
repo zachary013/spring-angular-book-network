@@ -209,10 +209,9 @@ public class BookService {
     //Upload book cover picture
     public void uploadBookCoverPicture(MultipartFile file, Authentication connectedUser, Integer bookId) {
         Book book = bookRepository.findById(bookId)
-                .orElseThrow(() -> new EntityNotFoundException("No Book Found By Id: "+bookId));
-        User user = ((User) connectedUser.getPrincipal());
-        var bookCover = fileStorageService.saveFile(file, user.getId());
-        book.setBookCover(bookCover);
+                .orElseThrow(() -> new EntityNotFoundException("No book found with ID:: " + bookId));
+        var profilePicture = fileStorageService.saveFile(file, connectedUser.getName());
+        book.setBookCover(profilePicture);
         bookRepository.save(book);
     }
 }
