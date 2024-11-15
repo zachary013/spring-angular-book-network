@@ -1,3 +1,14 @@
+<h2>My returned books</h2>
+<hr>
+<div
+  *ngIf="message"
+  class="alert "
+  [class.alert-danger]="level==='error'"
+  [class.alert-success]="level==='success'"
+  role="alert"
+>
+  <p>{{message}}</p>
+</div>
 <div>
   <table class="table">
     <thead>
@@ -12,7 +23,7 @@
     </thead>
     <tbody>
     <tr
-      *ngFor="let book of borrowedBooks.content; let index = index">
+      *ngFor="let book of returnedBooks.content; let index = index">
       <th scope="row">{{ index + 1 }}</th>
       <td>{{ book.title }}</td>
       <td>{{ book.authorName }}</td>
@@ -21,8 +32,8 @@
       <td>
         <div class="d-flex gap-2">
           <i *ngIf="book.returned" class="fa-regular fa-paper-plane text-primary"></i>
-          <i *ngIf="!book.returned" (click)="returnBorrowedBook(book)" class="fa-solid fa-paper-plane text-success"></i>
-          <i class="fa-solid fa-circle-check" [class.text-success]="book.returnApproved"></i>
+          <i *ngIf="!book.returned" class="fa-solid fa-paper-plane text-success"></i>
+          <i class="fa-solid fa-circle-check" (click)="approveBookReturn(book)" [class.text-success]="book.returnApproved"></i>
         </div>
       </td>
     </tr>
