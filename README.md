@@ -1,45 +1,101 @@
-# Book Social Network
+# Spring Angular Book Network
 
-## Introduction
-The Book Social Network is a web application that allows users to connect with others, share book recommendations, and engage in discussions around their favorite literature.
+A full-stack social networking platform for book lovers built with Spring Boot and Angular.
+
+## Overview
+
+Book Network is a social platform where users can connect with fellow readers, share book recommendations, and engage in literary discussions. The application features a robust backend built with Spring Boot and a modern, responsive frontend developed using Angular.
 
 ## Features
-- User registration and authentication
-- Creating and managing user profiles
-- Posting and commenting on book reviews
-- Searching for books and users
-- Forming connections and following other users
-- Notification system for new posts and comments
 
-## Technologies Used
-- Spring Boot for the backend API
-- Angular for the frontend web application
-- MySQL database for storing user data and book information
-- Spring Security for user authentication and authorization
-- Maven for project management and dependency management
+- User authentication and authorization with JWT
+- User profile management
+- Book discovery and search functionality
+- Social networking features:
+   - Follow other users
+   - Share book recommendations
+   - Post and comment on book reviews
+- Real-time notifications
+- Responsive design for all devices
+
+## Technology Stack
+
+### Backend
+- Java 17
+- Spring Boot 3.x
+- Spring Security with JWT
+- Spring Data JPA
+- PostgreSQL
+- OpenAPI (Swagger) for API documentation
+
+### Frontend
+- Angular 15+
+- TypeScript
+- SCSS for styling
+- Angular Material UI components
+- RxJS for reactive programming
 
 ## Getting Started
-1. Clone the repository: `git clone https://github.com/your-username/book-social-network.git`
-2. Navigate to the project directory: `cd book-social-network`
-3. Set up the MySQL database:
-    - Create a new database named `book_social_network`
-    - Update the `application.properties` file with your database connection details
-4. Build and run the Spring Boot application:
-    - Navigate to the backend directory: `cd backend`
-    - Run the application: `./mvnw spring-boot:run`
-5. Start the Angular development server:
-    - Navigate to the frontend directory: `cd frontend`
-    - Install dependencies: `npm install`
-    - Start the development server: `ng serve`
-6. Open your web browser and go to `http://localhost:4200` to access the application.
+
+### Prerequisites
+- Java 17 or higher
+- Node.js 16+ and npm
+- PostgreSQL database
+- Maven
+
+### Installation
+
+1. Clone the repository
+```bash
+git clone https://github.com/zachary013/spring-angular-book-network.git
+cd spring-angular-book-network
+```
+
+2. Backend Setup
+```bash
+cd book-network
+mvn clean install
+mvn spring-boot:run
+```
+
+3. Frontend Setup
+```bash
+cd frontend
+npm install
+ng serve
+```
+
+4. Access the application at `http://localhost:4200`
+
+## API Documentation
+
+The API documentation is available through Swagger UI when running the backend:
+`http://localhost:8080/swagger-ui.html`
+
+## Database Configuration
+
+Configure your PostgreSQL database connection in `application.properties`:
+
+```properties
+spring.datasource.url=jdbc:postgresql://localhost:5432/booknetwork
+spring.datasource.username=your_username
+spring.datasource.password=your_password
+```
 
 ## Contributing
-If you would like to contribute to the project, please follow these steps:
+
 1. Fork the repository
-2. Create a new branch for your feature or bug fix
-3. Make your changes and commit them
-4. Push your branch to your forked repository
-5. Submit a pull request to the main repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
 ## License
-This project is licensed under the [MIT License](LICENSE).
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Contact
+
+Zachary - [@zachary013](https://github.com/zachary013)
+
+Project Link: [https://github.com/zachary013/spring-angular-book-network](https://github.com/zachary013/spring-angular-book-network)
